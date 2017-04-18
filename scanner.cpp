@@ -1,9 +1,3 @@
-//Tom Grossman
-//CS4280 - Program Translation (Compilers)
-//Project 1 - Scanner
-//03/17/17
-//Copyright © 2017 Tom Grossman. All Rights Reserved.
-
 #include "scanner.h"
 
 // Returns size of input file
@@ -121,7 +115,7 @@ int fileToArry(string fileName, char *buff) {
 
 			ch = fgetc(file);
 			if(ch == '\n') {
-				buff[indx] = '\n';
+				buff[indx] = ch;
 				indx++;
 				continue;
 				
@@ -182,40 +176,24 @@ token *driver() {
 		// If driver returns a final state
 		if (nextState >= FINAL) {
 			if (nextState == 1001) {
-				if (checkKeyword(word) != -1) {
-					tkn = createToken(nextState, lineNum, getKeyword(checkKeyword(word)));
-
-					index--;
-					tokenCount++;
-					return tkn;
+				tkn = createToken(nextState, lineNum, word);
 					
-				} else {
-					tkn = createToken(nextState, lineNum, "ID_TKN", word);
-					
-					index--;
-					tokenCount++;
-					return tkn;
-				}
+				tokenCount++;
+				return tkn;
 				
 			} else if (nextState == 1002) {
-				tkn = createToken(nextState, lineNum, "NUM_TKN", word);
-				
-				index--;
-				tokenCount++;
-				return tkn;
-				
-			} else if(nextState == 1003 || nextState == 1005 || nextState == 1006 || nextState == 1007 || nextState == 1008) {
 				tkn = createToken(nextState, lineNum, word);
 				
-				index--;
 				tokenCount++;
 				return tkn;
-		
+				
 			} else {
-				if(buffer[index+1] != ' ' && buffer[index+1] != '\n' && buffer[index+1] != '\0') {
-					if(state != 3 && state != 4 && state != 5) {
+				if(buffer[index] != ' ' && buffer[index] != '\n' && buffer[index] != '\0') {
 						word.push_back(buffer[index]);
-					}
+				}
+				
+				if(nextState == 1004 || nextState == 1006 || nextState == 1008 || nextState == 1009 || nextState >= 1010) { 
+					index++;
 				}
 				
 				tkn = createToken(nextState, lineNum, word);
@@ -227,14 +205,16 @@ token *driver() {
 		} else {
 			state = nextState;
 			
-			if(nextChar != 24 && buffer[index+1] != '\n') {
+			if(buffer[index] != '\n' && buffer[index] != ' ') {
 				word.push_back(buffer[index]);
 			}		
+		} 
+		
+		if(buffer[index] == '\n') {
+			lineNum++;
 		}
 		
 		index++;
-		if(buffer[index] == '\n')
-			lineNum++;
 	}
 }
 
@@ -242,10 +222,10 @@ token *driver() {
 int checkKeyword(string word) {
 	for(int c = 0; c < 10; c++) {
 		if(!(word.compare(keywords[c]))) {
-			return c;
+			return 1;
 		}
 	}
-	return -1;
+	return 0;
 }
 
 // Returns keywords that were defined by the language
@@ -296,15 +276,75 @@ token *createToken(int ID, int line, string tknWord) {
 	
 	toReturn->tknID = ID;
 	toReturn->line = line;
-	
-	string tmp = tknWord;	
+		
 	if(ID == 1100) {
-		tmp = "EOF";
+		toReturn->tknName = "EOF_TKN";
+		toReturn->tknWord = "EOF";
+		return toReturn;
+	} else if(ID == 1001) {
+		toReturn->tknName = "ID_TKN";
+	} else if(ID == 1002) {
+		toReturn->tknName = "NUM_TKN";
+	} else if(ID == 1003) {
+		toReturn->tknName = "=_TKN";
+	} else if(ID == 1004) {
+		toReturn->tknName = "==_TKN";
+	} else if(ID == 1005) {
+		toReturn->tknName = "<_TKN";
+	} else if(ID == 1006) {
+		toReturn->tknName = "<<_TKN";
+	} else if(ID == 1007) {
+		toReturn->tknName = ">_TKN";
+	} else if(ID == 1008) {
+		toReturn->tknName = ">>_TKN";
+	} else if(ID == 1009) {
+		toReturn->tknName = "=!_TKN";
+	} else if(ID == 1010) {
+		toReturn->tknName = ":_TKN";
+	} else if(ID == 1011) {
+		toReturn->tknName = "+_TKN";
+	} else if(ID == 1012) {
+		toReturn->tknName = "-_TKN";
+	} else if(ID == 1013) {
+		toReturn->tknName = "*_TKN";
+	} else if(ID == 1014) {
+		toReturn->tknName = "&_TKN";
+	} else if(ID == 1015) {
+		toReturn->tknName = "%_TKN";
+	} else if(ID == 1016) {
+		toReturn->tknName = "._TKN";
+	} else if(ID == 1017) {
+		toReturn->tknName = "(_TKN";
+	} else if(ID == 1018) {
+		toReturn->tknName = ")_TKN";
+	} else if(ID == 1019) {
+		toReturn->tknName = ",_TKN";
+	} else if(ID == 1020) {
+		toReturn->tknName = "{_TKN";
+	} else if(ID == 1021) {
+		toReturn->tknName = "}_TKN";
+	} else if(ID == 1022) {
+		toReturn->tknName = ";_TKN";
+	} else if(ID == 1023) {
+		toReturn->tknName = "[_TKN";
+	} else if(ID == 1024) {
+		toReturn->tknName = "]_TKN";
+	} else if(ID == 1025) {
+		toReturn->tknName = "[_TKN";
+	} else if(ID == 1026) {
+		toReturn->tknName = "/_TKN";
+	} else {
+		printf("Error: Found token that does not exist with ID: %i\n", ID);
+		exit(EXIT_FAILURE);
 	}
 		
-	tmp.append("_TKN");
-	toReturn->tknName = tmp;
-	toReturn->tknWord = "NULL";
+	if(checkKeyword(tknWord)) {
+		toReturn->tknWord = tknWord;
+		toReturn->keyword = 1;
+	} else {
+		toReturn->tknWord = tknWord;
+		toReturn->keyword = 0;
+	}
 	
 	//printToken(toReturn);
 	return toReturn;

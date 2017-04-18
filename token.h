@@ -1,9 +1,3 @@
-//Tom Grossman
-//CS4280 - Program Translation (Compilers)
-//Project 1 - Scanner
-//03/17/17
-//Copyright © 2017 Tom Grossman. All Rights Reserved.
-
 #ifndef TOKEN_H
 #define TOKEN_H
 
@@ -17,6 +11,7 @@ typedef struct token {
 	int line;
 	std::string tknName;
 	std::string tknWord;
+	int keyword;
 } token;
 
 static const char *keywords[10] = {"start", "stop", "decision", "while", "void", "int", "return", "read", "print", "program"};

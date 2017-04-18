@@ -1,19 +1,24 @@
-all: p1 readme
+all: p2 readme
 
-p1: main.o scanner.o
-	g++ -o testScanner -g main.o scanner.o
+p2: main.o scanner.o parser.o treePrint.o
+	g++ -o testFrontEnd -g main.o scanner.o parser.o treePrint.o
 
-app.o: scanner.cpp
+parser.o: parser.cpp
+	g++ -c -g parser.cpp
+	
+treePrint.o: treePrint.cpp
+	g++ -c -g treePrint.cpp
+	
+scanner.o: scanner.cpp
 	g++ -c -g scanner.cpp
 
 main.o: main.cpp
 	g++ -c -g main.cpp
 
-
 clean: remove clear success
 
 remove:
-	rm *.o p1
+	rm *.o testFrontEnd
 
 clear: 
 	clear

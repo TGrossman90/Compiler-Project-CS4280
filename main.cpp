@@ -1,10 +1,7 @@
-//Tom Grossman
-//CS4280 - Program Translation (Compilers)
-//Project 1 - Scanner
-//03/17/17
-//Copyright © 2017 Tom Grossman. All Rights Reserved.
-
 #include "scanner.h"
+#include "node.h"
+#include "parser.h"
+#include "treePrint.h"
 
 char *buffer = new char[1000000];
 int index = 0;
@@ -58,13 +55,18 @@ int main(int argc, char* argv[]) {
 			
 			// This is the for-loop that repeatedly calls the 
 			// scanner until no tokens are left to find
-			token *tkns[1000000];
-			int c = 0;
-			for(index; index < size; index++) {
-				token *tkn = driver();
-				printToken(tkn);
-				free(tkn);
-			}
+			
+			//token *tkns[1000000];
+			//int c = 0;
+			//for(index; index < size; index++) {
+			//	token *tkn = driver();
+			//	printToken(tkn);
+			//	free(tkn);
+			//}
+			Node *root;
+			root = parser();
+			
+			printTree(root, 0); 
 			
 		// If too many arguments were passed to the program
 		} else if(argc > 2) {
@@ -93,13 +95,18 @@ int main(int argc, char* argv[]) {
 		
 		// This is the for-loop that repeatedly calls the 
 		// scanner until no tokens are left to find
-		token *tkns[1000000];
-			int c = 0;
-			for(index; index < size; index++) {
-				token *tkn = driver();
-				printToken(tkn);
-				free(tkn);
-			}
+		//token *tkns[1000000];
+		//	int c = 0;
+		//	for(index; index < size; index++) {
+		//		token *tkn = driver();
+		//		printToken(tkn);
+		//		free(tkn);
+		//	}
+		
+		Node *root;
+		root = parser();
+			
+		printTree(root, 0);
 		
 		// Remove the temporary file that was used to store redirected file
 		remove("temp.txt");

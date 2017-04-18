@@ -1,9 +1,3 @@
-//Tom Grossman
-//CS4280 - Program Translation (Compilers)
-//Project 1 - Scanner
-//03/17/17
-//Copyright © 2017 Tom Grossman. All Rights Reserved.
-
 #ifndef SCANNER_H
 #define SCANNER_H
 
@@ -33,8 +27,9 @@ string getKeyword(int);
 
 token *driver();
 token *createToken(int, int, string);
-token *createToken(int, int, string, string);
+token *createToken(int, int);
 
+void getLine();
 void printToken(token *);
 
 #endif
