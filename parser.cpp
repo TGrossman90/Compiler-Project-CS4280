@@ -80,7 +80,7 @@ Node *vars() {
 		newNode->tkn.push_back(tkn);
 		tkn = driver();
 		
-		if(tkn->tknID == 1001) {
+		if(tkn->tknID == 1001 && !tkn->keyword) {
 			newNode->tkn.push_back(tkn);
 			tkn = driver();
 			newNode->child1 = mvars();
@@ -560,48 +560,4 @@ Node *createNode(string name) {
 	newNode->name = name;
 	
 	return newNode;
-}
-	
-		
-
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+}	
