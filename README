@@ -1,14 +1,15 @@
+LOCAL OPTION
+
 Tom Grossman
-CS4280 - Program Translation (Compilers)
-Project 2 - Parser
+CS4280 - Project 3 - Semantics
 04/17/2017
 Copyright © Tom Grossman. All rights reserved
 
 Usage:
 	Project can be executed 3 ways:
-		1) ./testFrontEnd < [filename.ext] 
-		2) ./testFrontEnd [filename.ext]
-		3) ./testFrontEnd [filename]
+		1) ./testSem < [filename.ext] 
+		2) ./testSem [filename.ext]
+		3) ./testSem [filename]
 
 	To clean project output and related files:
 		make clean

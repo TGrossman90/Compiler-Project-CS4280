@@ -1,6 +1,7 @@
 #include "scanner.h"
 #include "node.h"
 #include "parser.h"
+#include "semantics.h"
 #include "treePrint.h"
 
 char *buffer = new char[1000000];
@@ -68,6 +69,10 @@ int main(int argc, char* argv[]) {
 			
 			printTree(root, 0); 
 			
+			semantics(root);
+			
+			printf("Finished\n");
+			
 		// If too many arguments were passed to the program
 		} else if(argc > 2) {
 			printf("Scanner Error: You've entered too many arguments. Please try again.\n");
@@ -107,6 +112,9 @@ int main(int argc, char* argv[]) {
 		root = parser();
 			
 		printTree(root, 0);
+		semantics(root);
+			printf("Finished\n");
+
 		
 		// Remove the temporary file that was used to store redirected file
 		remove("temp.txt");

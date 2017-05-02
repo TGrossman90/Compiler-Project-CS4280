@@ -1,0 +1,19 @@
+program 
+  int x : y
+  start
+    start
+      int w : x 
+      print << w 
+    stop
+    start
+      int w 
+      print << w 
+    stop
+    start
+      y = 9;
+      decision (x << y)
+        start
+	  x = x + 3;
+	stop
+    stop		 
+  stop

@@ -1,7 +1,13 @@
-all: p2 readme
+all: p3 readme
 
-p2: main.o scanner.o parser.o treePrint.o
-	g++ -o testFrontEnd -g main.o scanner.o parser.o treePrint.o
+p3: main.o scanner.o parser.o treePrint.o semantics.o stack.o
+	g++ -o testSem -g main.o scanner.o parser.o treePrint.o semantics.o stack.o
+	
+stack.o: stack.cpp
+	g++ -c -g stack.cpp
+	
+semantics.o: semantics.cpp
+	g++ -c -g semantics.cpp
 
 parser.o: parser.cpp
 	g++ -c -g parser.cpp
@@ -18,7 +24,7 @@ main.o: main.cpp
 clean: remove clear success
 
 remove:
-	rm *.o testFrontEnd
+	rm *.o testSem
 
 clear: 
 	clear

@@ -10,7 +10,7 @@ Node *parser() {
 	root = program();
 	
 	if(tkn->tknID == 1100) {
-		root->tkn.push_back(tkn);
+		//root->tkn.push_back(tkn);
 		
 		return root;
 	} else {
@@ -26,7 +26,7 @@ Node *program() {
 	Node *newNode = createNode("<program>");
 	
 	if(tkn->tknID == 1001 && tkn->tknWord == "program") {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 		
 		newNode->child1 = vars();
@@ -47,14 +47,14 @@ Node *block() {
 	Node *newNode = createNode("<block>");
 	
 	if(tkn->tknID == 1001 && tkn->tknWord == "start") {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 		
 		newNode->child1 = vars();
 		newNode->child2 = stats();
 		
 		if(tkn->tknID == 1001 && tkn->tknWord == "stop") {
-			newNode->tkn.push_back(tkn);
+			//newNode->tkn.push_back(tkn);
 			tkn = driver();
 			
 			return newNode;
@@ -77,7 +77,7 @@ Node *vars() {
 	Node *newNode = createNode("<vars>");
 	
 	if(tkn->tknID == 1001 && tkn->tknWord == "int") {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 		
 		if(tkn->tknID == 1001 && !tkn->keyword) {
@@ -103,7 +103,7 @@ Node *mvars() {
 	Node *newNode = createNode("<mvars>");
 	
 	if(tkn->tknID == 1010) {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 
 		if(tkn->tknID == 1001 && !tkn->keyword) {
@@ -193,7 +193,7 @@ Node *F() {
 		return newNode;
 	}
 	
-	newNode->child1 = R();
+	newNode->child2 = R();
 	
 	return newNode;
 }
@@ -205,12 +205,12 @@ Node *R() {
 	Node *newNode = createNode("<R>");
 	
 	if(tkn->tknID == 1017) {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 		newNode->child1 = expr();
 		
 		if(tkn->tknID == 1018) {
-			newNode->tkn.push_back(tkn);
+			//newNode->tkn.push_back(tkn);
 			tkn = driver();
 			
 			return newNode;
@@ -315,11 +315,11 @@ Node *in() {
 	Node *newNode = createNode("<in>");
 	
 	if(tkn->tknID == 1001 && tkn->tknWord == "read") {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 		
 		if(tkn->tknID == 1008) {
-			newNode->tkn.push_back(tkn);
+			//newNode->tkn.push_back(tkn);
 			tkn = driver();
 			
 			if(tkn->tknID == 1001 && !tkn->keyword) {
@@ -327,7 +327,7 @@ Node *in() {
 				tkn = driver();
 				
 				if(tkn->tknID == 1022) {
-					newNode->tkn.push_back(tkn);
+					//newNode->tkn.push_back(tkn);
 					tkn = driver();
 					
 					return newNode;
@@ -360,11 +360,11 @@ Node *out() {
 	Node *newNode = createNode("<out>");
 	
 	if(tkn->tknID == 1001 && tkn->tknWord == "print") {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 		
 		if(tkn->tknID == 1006) {
-			newNode->tkn.push_back(tkn);
+			//newNode->tkn.push_back(tkn);
 			tkn = driver();
 			
 			newNode->child1 = expr();
@@ -388,11 +388,11 @@ Node *_if() {
 	Node *newNode = createNode("<if>");
 	
 	if(tkn->tknID == 1001 && tkn->tknWord == "decision") {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 		
 		if(tkn->tknID == 1017) {
-			newNode->tkn.push_back(tkn);
+			//newNode->tkn.push_back(tkn);
 			tkn = driver();
 
 			newNode->child1 = expr();
@@ -400,7 +400,7 @@ Node *_if() {
 			newNode->child3 = expr();
 			
 			if(tkn->tknID == 1018) {
-				newNode->tkn.push_back(tkn);
+				//newNode->tkn.push_back(tkn);
 				tkn = driver();
 				
 				newNode->child4 = block();
@@ -430,11 +430,11 @@ Node *loop() {
 	Node *newNode = createNode("<loop>");
 	
 	if(tkn->tknID == 1001 & tkn->tknWord == "while") {
-		newNode->tkn.push_back(tkn);
+		//newNode->tkn.push_back(tkn);
 		tkn = driver();
 		
 		if(tkn->tknID == 1017) {
-			newNode->tkn.push_back(tkn);
+			//newNode->tkn.push_back(tkn);
 			tkn = driver();
 
 			newNode->child1 = expr();
@@ -442,7 +442,7 @@ Node *loop() {
 			newNode->child3 = expr();
 			
 			if(tkn->tknID == 1018) {
-				newNode->tkn.push_back(tkn);
+				//newNode->tkn.push_back(tkn);
 				tkn = driver();
 				
 				newNode->child4 = block();
@@ -476,7 +476,7 @@ Node *assign() {
 		tkn = driver();
 		
 		if(tkn->tknID == 1003) {
-			newNode->tkn.push_back(tkn);
+			//newNode->tkn.push_back(tkn);
 			tkn = driver();
 		} else {
 			printf("Error on line %d: Expected =_TKN\n", tkn->line);
@@ -486,7 +486,7 @@ Node *assign() {
 		newNode->child1 = expr();
 		
 		if(tkn->tknID == 1022) {
-			newNode->tkn.push_back(tkn);
+			//newNode->tkn.push_back(tkn);
 			tkn = driver();
 			
 			return newNode;
@@ -560,4 +560,4 @@ Node *createNode(string name) {
 	newNode->name = name;
 	
 	return newNode;
-}	
+}
