@@ -10,5 +10,6 @@ void semantics(Node*);
 void check(token*);
 int checkScope(stack);
 int checkExists(stack);
+void codeGen(Node*, char*);
 
 #endif

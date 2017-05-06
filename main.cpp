@@ -64,14 +64,12 @@ int main(int argc, char* argv[]) {
 			//	printToken(tkn);
 			//	free(tkn);
 			//}
+			
 			Node *root;
 			root = parser();
-			
-			printTree(root, 0); 
-			
-			semantics(root);
-			
-			printf("Finished\n");
+		//	printTree(root, 0); 
+			codeGen(root, argv[1]);
+			//printf("Finished\n\n");
 			
 		// If too many arguments were passed to the program
 		} else if(argc > 2) {
@@ -91,7 +89,7 @@ int main(int argc, char* argv[]) {
 			
 			// Put redirected file into a temp file
 			tempFile.open(name.c_str(), ios::app);
-			tempFile << userInput << "\n";
+			tempFile << userInput << "\n\n";
 			tempFile.close();
 		}
 		
@@ -110,12 +108,10 @@ int main(int argc, char* argv[]) {
 		
 		Node *root;
 		root = parser();
-			
-		printTree(root, 0);
-		semantics(root);
-			printf("Finished\n");
+		printTree(root, 0); 
+		codeGen(root, argv[0]);
+		printf("Finished\n");
 
-		
 		// Remove the temporary file that was used to store redirected file
 		remove("temp.txt");
 	}

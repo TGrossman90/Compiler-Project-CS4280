@@ -168,7 +168,13 @@ Node *T() {
 	
 	newNode->child1 = F();
 	
-	if(tkn->tknID == 1011 || tkn->tknID == 1012) {
+	if(tkn->tknID == 1011) {
+		newNode->tkn.push_back(tkn);
+		tkn = driver();
+		newNode->child2 = T();
+		
+		return newNode;
+	} else if(tkn->tknID == 1012) {
 		newNode->tkn.push_back(tkn);
 		tkn = driver();
 		newNode->child2 = T();
